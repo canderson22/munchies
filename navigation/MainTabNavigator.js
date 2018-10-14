@@ -7,8 +7,8 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import PlateScreen from '../screens/PlateScreen';
+import MunchiesScreen from '../screens/MunchiesScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -24,11 +24,11 @@ HomeStack.navigationOptions = {
   )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
+const PlateStack = createStackNavigator({
+  Plate: PlateScreen
 });
 
-LinksStack.navigationOptions = {
+PlateStack.navigationOptions = {
   tabBarLabel: 'Fill my Plate',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -42,11 +42,11 @@ LinksStack.navigationOptions = {
   )
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
+const MunchiesStack = createStackNavigator({
+  Munchies: MunchiesScreen
 });
 
-SettingsStack.navigationOptions = {
+MunchiesStack.navigationOptions = {
   tabBarLabel: 'My Munchies',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -62,6 +62,6 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack
+  PlateStack,
+  MunchiesStack
 });

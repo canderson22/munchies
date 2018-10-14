@@ -28,44 +28,40 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
+          <View style={styles.getStartedContainer}>
+            <MonoText style={styles.getStartedText}>
+              Welcome to Munchies
+            </MonoText>
+            <Text style={styles.getStartedText}>
+              Your one quick stop to find your favorite foods around right now.
+            </Text>
+            <Text style={styles.getStartedText}>
+              Just enter your favorite foods and we'll check around to find
+              them.
+            </Text>
+          </View>
 
-          {/* <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>Munchies</Text>
-
+          <View style={styles.getStartedContainer}>
             <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
             >
               <MonoText style={styles.codeHighlightText}>
-                screens/HomeScreen.js
+                Tap on Fill my Plate to get started!
               </MonoText>
             </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View> */}
+          </View>
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Hungry this app is for you</Text>
+          <Text style={styles.tabBarInfoText}>🥤 Munchies 🍽</Text>
 
           <View
             style={[styles.codeHighlightContainer, styles.navigationFilename]}
-          >
-            {/* <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText> */}
-          </View>
+          />
         </View>
       </View>
     );
   }
-
-  // _handleHelpPress = () => {
-  //   WebBrowser.openBrowserAsync(
-  //     'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-  //   );
-  // };
 }
 
 const styles = StyleSheet.create({
@@ -88,22 +84,35 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20
   },
+  textBox: {
+    alignItems: 'center',
+    marginTop: 30
+  },
   welcomeImage: {
     width: 100,
     height: 80,
     resizeMode: 'contain',
     marginTop: 3,
+    marginLeft: -30
+  },
+  logo: {
+    width: 100,
+    height: 50,
+    resizeMode: 'contain',
     marginLeft: -10
   },
   getStartedContainer: {
     alignItems: 'center',
-    marginHorizontal: 50
+    marginHorizontal: 50,
+    marginTop: 10
   },
   homeScreenFilename: {
     marginVertical: 7
   },
   codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)'
+    color: 'rgba(96,100,109, 0.8)',
+    fontSize: 14,
+    textAlign: 'center'
   },
   codeHighlightContainer: {
     backgroundColor: 'rgba(0,0,0,0.05)',
@@ -111,10 +120,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4
   },
   getStartedText: {
-    fontSize: 17,
+    fontSize: 20,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingBottom: 20
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -137,7 +147,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   tabBarInfoText: {
-    fontSize: 17,
+    fontFamily: 'Noteworthy',
+    fontSize: 28,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center'
   },
