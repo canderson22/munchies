@@ -8,14 +8,20 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log(this.props.navigation);
     return (
       <View style={styles.container}>
         <ScrollView
@@ -45,9 +51,13 @@ export default class HomeScreen extends React.Component {
             <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
             >
-              <MonoText style={styles.codeHighlightText}>
-                Tap on Fill my Plate to get started!
-              </MonoText>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Plate')}
+              >
+                <MonoText style={styles.codeHighlightText}>
+                  Tap on Fill my Plate to get started!
+                </MonoText>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -167,3 +177,5 @@ const styles = StyleSheet.create({
     color: '#2e78b7'
   }
 });
+
+export default withNavigation(HomeScreen);
