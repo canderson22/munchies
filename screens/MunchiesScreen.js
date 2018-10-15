@@ -1,6 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Examples } from '@shoutem/ui';
+import { View, ScrollView } from 'react-native';
+import Favorites from '../components/Favorites';
+// import {
+//   ListView,
+//   ImageBackground,
+//   Tile,
+//   Subtitle,
+//   Title,
+//   Divider
+// } from '@shoutem/ui';
 
 export default class MunchiesScreen extends React.Component {
   static navigationOptions = {
@@ -31,18 +39,32 @@ export default class MunchiesScreen extends React.Component {
   }
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
+    const { food } = this.state;
     return (
       <View
         style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
       >
-        <Examples />
-
-        <Text>Latitude: {this.state.latitude}</Text>
-        <Text>Longitude: {this.state.longitude}</Text>
-        {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
+        <Favorites />
       </View>
     );
   }
 }
+
+// renderRow(restaurant) {
+//   return (
+//     <View>
+//       <ImageBackground
+//         styleName="large-banner"
+//         source={{ uri: restaurant.image.url }}
+//       >
+//         <Tile>
+//           <Title styleName="md-gutter-bottom">{restaurant.name}</Title>
+//           <Subtitle styleName="sm-gutter-horizontal">
+//             {restaurant.address}
+//           </Subtitle>
+//         </Tile>
+//       </ImageBackground>
+//       <Divider styleName="line" />
+//     </View>
+//   );
+// }

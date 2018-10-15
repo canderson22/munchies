@@ -1,8 +1,9 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { MonoText } from '../components/StyledText';
 import { Heading, TextInput, Button, Divider, Title, Icon } from '@shoutem/ui';
+import axios from 'axios';
 
 class PlateScreen extends React.Component {
   static navigationOptions = {
@@ -22,7 +23,12 @@ class PlateScreen extends React.Component {
 
   handleSubmit() {
     console.log(this.state);
-    this.props.navigation.navigate('Munchies');
+    axios
+      .post('http://localhost:3000/foods', this.state)
+      .then(res => {
+        this.props.navigation.navigate('Munchies');
+      })
+      .catch(err => Alert.alert('Already saved in your munchies'));
   }
 
   render() {
