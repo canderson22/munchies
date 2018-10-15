@@ -1,5 +1,7 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Alert } from 'react-native';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import Toast, { DURATION } from 'react-native-easy-toast';
+
 import { withNavigation } from 'react-navigation';
 import { MonoText } from '../components/StyledText';
 import { Heading, TextInput, Button, Divider, Title, Icon } from '@shoutem/ui';
@@ -22,18 +24,38 @@ class PlateScreen extends React.Component {
   }
 
   handleSubmit() {
-    console.log(this.state);
     axios
       .post('http://localhost:3000/foods', this.state)
       .then(res => {
-        this.props.navigation.navigate('Munchies');
+        this.refs.toast.show('Your munchies were added!', DURATION.LENGTH_LONG);
+        this.setState({ item1: '', item2: '', item3: '' });
       })
-      .catch(err => Alert.alert('Already saved in your munchies'));
+      .catch(err => {
+        this.refs.toast.show(
+          'Already saved in your munchies',
+          DURATION.LENGTH_LONG
+        );
+        this.setState({ item1: '', item2: '', item3: '' });
+      });
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
+        <Toast
+          ref="toast"
+          style={{
+            backgroundColor: 'white',
+            borderWidth: 2,
+            borderColor: '#333'
+          }}
+          position="top"
+          positionValue={200}
+          fadeInDuration={750}
+          fadeOutDuration={1000}
+          opacity={0.8}
+          textStyle={{ color: '#333', fontSize: 20 }}
+        />
         <View style={styles.textBox}>
           <Heading>
             <MonoText style={{ textAlign: 'center' }}>

@@ -39,7 +39,6 @@ export default class MunchiesScreen extends React.Component {
   }
 
   render() {
-    const { food } = this.state;
     return (
       <View
         style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}

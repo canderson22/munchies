@@ -6,7 +6,8 @@ import {
   ImageBackground,
   Tile,
   Heading,
-  Divider
+  Divider,
+  Screen
 } from '@shoutem/ui';
 import axios from 'axios';
 
@@ -20,7 +21,7 @@ export default class Favorites extends React.Component {
     this.renderRow = this.renderRow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     axios
       .get('http://localhost:3000/foods')
       .then(res => res.data)
@@ -29,9 +30,11 @@ export default class Favorites extends React.Component {
       });
   }
 
+  _handlePress(food) {}
+
   renderRow(food) {
     return (
-      <View>
+      <Screen>
         <TouchableOpacity>
           <ImageBackground
             styleName="large-banner"
@@ -43,7 +46,7 @@ export default class Favorites extends React.Component {
           </ImageBackground>
         </TouchableOpacity>
         <Divider styleName="line" />
-      </View>
+      </Screen>
     );
   }
 
@@ -56,7 +59,7 @@ export default class Favorites extends React.Component {
             <ListView data={foods} renderRow={this.renderRow} />
           </ScrollView>
         ) : (
-          <Spinner color="blue" />
+          <Spinner style={{ color: 'red' }} size={'large'} />
         )}
       </View>
     );
