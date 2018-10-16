@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import { withNavigation } from 'react-navigation';
@@ -13,7 +13,7 @@ import {
   Icon,
   Spinner
 } from '@shoutem/ui';
-import axios from 'axios';
+const Viewport = Dimensions.get('window');
 
 class PlateScreen extends React.Component {
   static navigationOptions = {
@@ -33,8 +33,16 @@ class PlateScreen extends React.Component {
   }
 
   handleSubmit() {
+    const { item1, item2, item3 } = this.state;
     axios
-      .post('http://localhost:3000/foods', this.state)
+      .post('http://192.168.0.25:3000/foods', {
+        method: 'POST',
+        body: {
+          item1,
+          item2,
+          item3
+        }
+      })
       .then(res => {
         this.refs.toast.show('Your munchies were added!', DURATION.LENGTH_LONG);
         this.setState(previousState => {
@@ -154,7 +162,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    height: Viewport.height
   },
   textBox: {
     flex: 1,

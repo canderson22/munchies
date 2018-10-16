@@ -5,15 +5,6 @@ import ResturantsView from '../components/Resturants';
 
 import axios from 'axios';
 
-// import {
-//   ListView,
-//   ImageBackground,
-//   Tile,
-//   Subtitle,
-//   Title,
-//   Divider
-// } from '@shoutem/ui';
-
 export default class MunchiesScreen extends React.Component {
   static navigationOptions = {
     title: 'My Munchies 🌮'
@@ -31,12 +22,13 @@ export default class MunchiesScreen extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get('http://localhost:3000/foods')
-      .then(res => res.data)
+    fetch('http://192.168.0.25:3000/foods')
+      .then(res => res.json())
+      .then(data => data)
       .then(foods => {
         this.setState({ foods });
-      });
+      })
+      .catch(err => console.log('err', err));
     navigator.geolocation.getCurrentPosition(
       position => {
         const latitude = JSON.stringify(position.coords.latitude);
@@ -52,19 +44,16 @@ export default class MunchiesScreen extends React.Component {
   }
 
   _selectFood(food) {
-    axios
-      .get('http://localhost:3000/restaurants', {
-        params: {
-          food: food.name,
-          latitude: this.state.latitude,
-          longitude: this.state.longitude
-        }
-      })
-      .then(res => {
-        console.log('res', res);
+    fetch(
+      `http://192.168.0.25:3000/restaurants?food=${food.name}&latitude=${
+        this.state.latitude
+      }&longitude=${this.state.longitude}`
+    )
+      .then(res => res.json())
+      .then(data => {
         this.setState(previousState => {
           return {
-            restaurants: res.data,
+            restaurants: data,
             showResturants: !previousState.showResturants
           };
         });
@@ -78,6 +67,7 @@ export default class MunchiesScreen extends React.Component {
   }
 
   render() {
+    // console.log(this.state);
     return (
       <View
         style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
@@ -97,22 +87,3 @@ export default class MunchiesScreen extends React.Component {
     );
   }
 }
-
-// renderRow(restaurant) {
-//   return (
-//     <View>
-//       <ImageBackground
-//         styleName="large-banner"
-//         source={{ uri: restaurant.image.url }}
-//       >
-//         <Tile>
-//           <Title styleName="md-gutter-bottom">{restaurant.name}</Title>
-//           <Subtitle styleName="sm-gutter-horizontal">
-//             {restaurant.address}
-//           </Subtitle>
-//         </Tile>
-//       </ImageBackground>
-//       <Divider styleName="line" />
-//     </View>
-//   );
-// }
