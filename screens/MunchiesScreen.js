@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
 import Favorites from '../components/Favorites';
+import ResturantsView from '../components/Resturants';
+
+import axios from 'axios';
+
 // import {
 //   ListView,
 //   ImageBackground,
@@ -19,11 +23,20 @@ export default class MunchiesScreen extends React.Component {
     super(props);
     this.state = {
       latitude: null,
-      longitude: null
+      longitude: null,
+      foods: [],
+      restaurants: [],
+      showResturants: false
     };
   }
 
   componentDidMount() {
+    axios
+      .get('http://localhost:3000/foods')
+      .then(res => res.data)
+      .then(foods => {
+        this.setState({ foods });
+      });
     navigator.geolocation.getCurrentPosition(
       position => {
         const latitude = JSON.stringify(position.coords.latitude);
@@ -38,12 +51,48 @@ export default class MunchiesScreen extends React.Component {
     );
   }
 
+  _selectFood(food) {
+    axios
+      .get('http://localhost:3000/restaurants', {
+        params: {
+          food: food.name,
+          latitude: this.state.latitude,
+          longitude: this.state.longitude
+        }
+      })
+      .then(res => {
+        console.log('res', res);
+        this.setState(previousState => {
+          return {
+            restaurants: res.data,
+            showResturants: !previousState.showResturants
+          };
+        });
+      });
+  }
+
+  _goBack() {
+    this.setState(previousState => {
+      return { showResturants: !previousState.showResturants };
+    });
+  }
+
   render() {
     return (
       <View
         style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
       >
-        <Favorites />
+        {this.state.showResturants ? (
+          <ResturantsView
+            restaurants={this.state.restaurants}
+            goBack={this._goBack.bind(this)}
+          />
+        ) : (
+          <Favorites
+            foods={this.state.foods}
+            selectFood={this._selectFood.bind(this)}
+          />
+        )}
       </View>
     );
   }

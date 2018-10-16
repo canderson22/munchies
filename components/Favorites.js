@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import {
   ListView,
   Spinner,
@@ -9,33 +10,19 @@ import {
   Divider,
   Screen
 } from '@shoutem/ui';
-import axios from 'axios';
 
-export default class Favorites extends React.Component {
+class Favorites extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      foods: []
-    };
-
     this.renderRow = this.renderRow.bind(this);
   }
 
-  componentWillMount() {
-    axios
-      .get('http://localhost:3000/foods')
-      .then(res => res.data)
-      .then(foods => {
-        this.setState({ foods });
-      });
-  }
-
-  _handlePress(food) {}
+  componentWillMount() {}
 
   renderRow(food) {
     return (
       <Screen>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.selectFood(food)}>
           <ImageBackground
             styleName="large-banner"
             source={{ uri: food.image }}
@@ -51,7 +38,7 @@ export default class Favorites extends React.Component {
   }
 
   render() {
-    const { foods } = this.state;
+    const { foods } = this.props;
     return (
       <View>
         {foods.length > 0 ? (
@@ -59,9 +46,11 @@ export default class Favorites extends React.Component {
             <ListView data={foods} renderRow={this.renderRow} />
           </ScrollView>
         ) : (
-          <Spinner style={{ color: 'red' }} size={'large'} />
+          <Spinner style={{ color: 'red' }} styleName="large" />
         )}
       </View>
     );
   }
 }
+
+export default withNavigation(Favorites);

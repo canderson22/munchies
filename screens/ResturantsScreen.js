@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { Screen } from '@shoutem/ui';
 
-class ResturantsView extends React.Component {
+class ResturantsScreeen extends React.Component {
   static navigationOptions = {
     title: 'Restaurants'
   };
@@ -10,12 +12,18 @@ class ResturantsView extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    console.log(this.props.navigation.getParam('category', 'none'));
+  }
+
   render() {
-    console.log(this.props);
     return (
       <View>
         <View style={styles.backView}>
-          <Button onPress={() => this.props.goBack()} title="Go Back" />
+          <Button
+            onPress={() => this.props.navigation.navigate('Munchies')}
+            title="Go Back"
+          />
         </View>
         <View
           style={{
@@ -42,4 +50,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ResturantsView;
+export default withNavigation(ResturantsScreeen);
