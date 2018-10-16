@@ -17,6 +17,10 @@ class Favorites extends React.Component {
     this.renderRow = this.renderRow.bind(this);
   }
 
+  componentDidMount() {
+    console.log('hit');
+  }
+
   renderRow(food) {
     return (
       <Screen>

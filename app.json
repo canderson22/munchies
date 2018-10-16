@@ -20,6 +20,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "config": {
+      "googleMapsApiKey": "AIzaSyBdkz2JTHvy2ztNZP9MeCsgg5W_ON-S3D0"
     }
   }
 }

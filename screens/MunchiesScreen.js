@@ -22,7 +22,7 @@ export default class MunchiesScreen extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://192.168.0.25:3000/foods')
+    fetch('http://10.6.64.40:3000/foods')
       .then(res => res.json())
       .then(data => data)
       .then(foods => {
@@ -45,7 +45,7 @@ export default class MunchiesScreen extends React.Component {
 
   _selectFood(food) {
     fetch(
-      `http://192.168.0.25:3000/restaurants?food=${food.name}&latitude=${
+      `http://10.6.64.40:3000/restaurants?food=${food.name}&latitude=${
         this.state.latitude
       }&longitude=${this.state.longitude}`
     )

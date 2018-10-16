@@ -34,15 +34,18 @@ class PlateScreen extends React.Component {
 
   handleSubmit() {
     const { item1, item2, item3 } = this.state;
-    axios
-      .post('http://192.168.0.25:3000/foods', {
-        method: 'POST',
-        body: {
-          item1,
-          item2,
-          item3
-        }
+    fetch('http://10.6.64.40:3000/getfoods/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        item1,
+        item2,
+        item3
       })
+    })
       .then(res => {
         this.refs.toast.show('Your munchies were added!', DURATION.LENGTH_LONG);
         this.setState(previousState => {
@@ -50,6 +53,7 @@ class PlateScreen extends React.Component {
         });
       })
       .catch(err => {
+        console.log(err);
         this.refs.toast.show(
           'Already saved in your munchies',
           DURATION.LENGTH_LONG
